@@ -3,56 +3,46 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nohubert <nohubert@student.42.fr>          +#+  +:+       +#+         #
+#    By: amary <amary@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/08/12 10:08:34 by nohubert          #+#    #+#              #
-#    Updated: 2025/09/25 16:49:46 by nohubert         ###   LAUSANNE.ch        #
+#    Created: 2026/01/22 18:04:19 by amary             #+#    #+#              #
+#    Updated: 2026/01/22 18:38:15 by amary            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 
-SRC_DIR = src
-
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I include -I ${LIBFT_DIR} -I ${PRINTF_DIR}/include -g3
+CFLAGS = -Wall -Werror -Wextra
 
-LIBFT_DIR = libft
-LIBFT = ${LIBFT_DIR}/libft.a
+LIBFT = libft
+LIBFT = $(LIBFT)/libft.a
 
-PRINTF_DIR = ft_printf
-PRINTF = ${PRINTF_DIR}/libftprintf.a
+INCLUDES = -I include -I libft
 
-SRC = ${SRC_DIR}/main.c ${SRC_DIR}/parsing.c ${SRC_DIR}/path.c\
-	  ${SRC_DIR}/utils.c ${SRC_DIR}/cleanup.c ${SRC_DIR}/init.c\
-	  ${SRC_DIR}/fd.c ${SRC_DIR}/exec.c
+SRC = src/main.c \
+		src/close/ft_free.c \
+		
+OBJ = $(SRC:.c=.o)
 
-OBJS = ${SRC:.c=.o}
+all: $(NAME)
 
-all:	${NAME}
+$(NAME): $(LIBFT) $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) -o $(NAME)
 
-${NAME}:	${LIBFT} ${PRINTF} ${OBJS}
-		${CC} ${CFLAGS} -o ${NAME} ${OBJS} ${PRINTF} ${LIBFT}
+$(LIBFT):
+	make -C $(LIBFT)
 
-${PRINTF}:
-	${MAKE} -C ${PRINTF_DIR}
-
-${LIBFT}:
-		${MAKE} -C ${LIBFT_DIR}
-
-${SRC_DIR}/%.o: ${SRC_DIR}/%.c include/pipex.h
-		${CC} ${CFLAGS} -c $< -o $@
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-		${MAKE} -C ${LIBFT_DIR} clean
-		${MAKE} -C ${PRINTF_DIR} clean
-		rm -f ${OBJS}
+	rm -f $(OBJ)
+	make clean -C $(LIBFT)
 
-fclean:	clean
-		${MAKE} -C ${LIBFT_DIR} fclean
-		${MAKE} -C ${PRINTF_DIR} fclean
-		rm -f ${NAME}
+fclean: clean
+	rm -f $(NAME)
+	make fclean -C $(LIBFT)
 
-re:		fclean all
+re: fclean all
 
-.PHONY:	all clean fclean re

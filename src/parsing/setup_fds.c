@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd.c                                               :+:      :+:    :+:   */
+/*   setup_fds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolhan <nolhan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/16 12:51:58 by nohubert          #+#    #+#             */
-/*   Updated: 2025/09/26 15:05:32 by nolhan           ###   ########.fr       */
+/*   Created: 2026/01/22 18:49:12 by amary             #+#    #+#             */
+/*   Updated: 2026/01/22 19:10:01 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../../include/pipex.h"
 
-bool	setup_fds(t_pipex *px, const char *infile, const char *outfile)
+bool	setup_fds(t_pipex *pipex, char *infile, char *outfile)
 {
-	px->infile = open(infile, O_RDONLY);
-	if (px->infile < 0)
+	pipex->infile = open(infile, O_RDONLY);
+	if (infile < 0)
 		return (perror("cannot open infile"), false);
-	px->outfile = open(outfile, O_CREAT | O_WRONLY | O_TRUNC, PX_OUTMODE);
-	if (px->outfile < 0)
+	pipex->outfile = open(outfile, O_WRONLY || O_CREAT | O_TRUNC, 0644);
+	if (outfile < 0)
 	{
-		px_close(&px->infile);
+		pipex_close(&pipex->infile);
 		return (perror("cannot open outfile"), false);
 	}
 	return (true);

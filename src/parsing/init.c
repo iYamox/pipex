@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nolhan <nolhan@student.42.fr>              +#+  +:+       +#+        */
+/*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/16 14:47:59 by nohubert          #+#    #+#             */
-/*   Updated: 2025/09/26 18:46:45 by nolhan           ###   ########.fr       */
+/*   Created: 2026/01/22 18:07:48 by amary             #+#    #+#             */
+/*   Updated: 2026/01/22 18:14:41 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/pipex.h"
+#include "../../include/pipex.h"
 
-void	init(t_pipex *px, char **envp)
+void	init(t_pipex *pipex, char **envp)
 {
-	px->infile = -1;
-	px->outfile = -1;
-	px->pipefd[0] = -1;
-	px->pipefd[1] = -1;
-	px->envp = envp;
-	px->cmd[0].argv = NULL;
-	px->cmd[0].path = NULL;
-	px->cmd[1].argv = NULL;
-	px->cmd[1].path = NULL;
+	pipex->infile = -1;
+	pipex->outfile = -1;
+	pipex->envp = envp;
+	pipex->pipefd[0] = -1;
+	pipex->pipefd[1] = -1;
+	pipex->cmd[0].argv = NULL;
+	pipex->cmd[0].path = NULL;
+	pipex->cmd[1].argv = NULL;
+	pipex->cmd[1].path = NULL;
+	return ;
 }
