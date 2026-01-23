@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nohubert <nohubert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 13:55:40 by nohubert          #+#    #+#             */
-/*   Updated: 2025/04/29 16:34:40 by nohubert         ###   LAUSANNE.ch       */
+/*   Created: 2025/11/05 17:33:13 by amary             #+#    #+#             */
+/*   Updated: 2025/11/16 11:43:57 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 int	ft_isalnum(int c)
 {
-	return (((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-		|| (c >= 48 && c <= 57));
+	return (ft_isalpha(c) || ft_isdigit(c));
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	printf("%d", ft_isalnum('D'));
+}
+*/

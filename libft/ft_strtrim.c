@@ -3,51 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nohubert <nohubert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 11:39:14 by nohubert          #+#    #+#             */
-/*   Updated: 2025/05/02 14:36:21 by nohubert         ###   LAUSANNE.ch       */
+/*   Created: 2025/11/06 09:56:50 by amary             #+#    #+#             */
+/*   Updated: 2025/11/10 19:00:17 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	in_set(char c, const char *set)
+size_t	ft_is_inset(char c, const char *set)
 {
-	while (*set)
+	size_t	i;
+
+	i = 0;
+	while (set[i])
 	{
-		if (c == *set)
+		if (set[i] == c)
 			return (1);
-		set++;
+		i++;
 	}
 	return (0);
 }
 
-char	*ft_strtrim(const char *s1, const char *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
+	size_t	i;
 	size_t	start;
 	size_t	end;
-	size_t	len;
-	char	*trim;
+	char	*dst;
 
-	if (!s1)
-		return (NULL);
-	if (!set || *set == '\0')
-		return (ft_strdup(s1));
 	start = 0;
-	end = ft_strlen(s1);
-	while (in_set(s1[start], set))
+	while (s1[start] && ft_is_inset(s1[start], set))
 		start++;
-	while (end > start && in_set(s1[end - 1], set))
+	end = ft_strlen(s1);
+	while (end > start && ft_is_inset(s1[end - 1], set))
 		end--;
-	if (start >= end)
-		len = 0;
-	else
-		len = end - start;
-	trim = malloc(len + 1);
-	if (!trim)
+	dst = malloc(((end - start) + 1) * sizeof(char));
+	if (!dst)
 		return (NULL);
-	ft_memcpy(trim, s1 + start, len);
-	trim[len] = '\0';
-	return (trim);
+	i = 0;
+	while (start < end)
+	{
+		dst[i] = s1[start];
+		i++;
+		start++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }

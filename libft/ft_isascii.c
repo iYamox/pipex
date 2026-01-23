@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nohubert <nohubert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 14:01:31 by nohubert          #+#    #+#             */
-/*   Updated: 2025/04/29 16:34:52 by nohubert         ###   LAUSANNE.ch       */
+/*   Created: 2025/11/05 17:35:20 by amary             #+#    #+#             */
+/*   Updated: 2025/11/16 11:45:13 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,3 +16,11 @@ int	ft_isascii(int c)
 {
 	return (c >= 0 && c <= 127);
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	printf("%d", ft_isascii('%'));	
+}
+	*/

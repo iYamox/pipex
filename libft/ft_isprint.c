@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nohubert <nohubert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/28 14:08:45 by nohubert          #+#    #+#             */
-/*   Updated: 2025/04/29 16:35:06 by nohubert         ###   LAUSANNE.ch       */
+/*   Created: 2025/11/05 17:39:24 by amary             #+#    #+#             */
+/*   Updated: 2025/11/16 11:48:09 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,3 +16,11 @@ int	ft_isprint(int c)
 {
 	return (c >= 32 && c <= 126);
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	printf("%d", ft_isprint(126));
+}
+	*/

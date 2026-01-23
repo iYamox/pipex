@@ -3,98 +3,121 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nohubert <nohubert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/02 14:43:09 by nohubert          #+#    #+#             */
-/*   Updated: 2025/09/16 11:46:32 by nohubert         ###   LAUSANNE.ch       */
+/*   Created: 2025/11/13 13:16:22 by amary             #+#    #+#             */
+/*   Updated: 2026/01/23 15:05:15 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	count_words(const char *s, char c)
+static size_t	ft_wordcount(char const *s, char c)
 {
+	size_t	i;
 	size_t	count;
 
+	i = 0;
 	count = 0;
-	if (c == '\0')
+	while (s[i])
 	{
-		if (*s == '\0')
-			return (0);
-		return (1);
-	}
-	while (*s)
-	{
-		while (*s == c)
-			s++;
-		if (!*s)
-			break ;
-		count++;
-		while (*s && *s != c)
-			s++;
+		while (s[i] && s[i] == c)
+			i++;
+		if (s[i] && s[i] != c)
+		{
+			count++;
+			while (s[i] && s[i] != c)
+				i++;
+		}
 	}
 	return (count);
 }
 
-static char	*alloc_word(const char *start, size_t len)
+static char	*ft_strndup(char const *s, size_t start, size_t end)
 {
-	return (ft_substr(start, 0, len));
-}
-
-static void	free_tab(char **tab, size_t filled)
-{
+	char	*str;
 	size_t	i;
 
+	str = malloc((end - start + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
 	i = 0;
-	while (i < filled)
+	while (start < end)
+		str[i++] = s[start++];
+	str[i] = '\0';
+	return (str);
+}
+
+static void	ft_free_tab(char **tab, size_t i)
+{
+	size_t	j;
+
+	j = 0;
+	while (j < i)
 	{
-		free(tab[i]);
-		i++;
+		free(tab[j]);
+		j++;
 	}
 	free(tab);
 }
 
-static int	fill_tab(char **tab, const char *s, char c)
+static int	ft_fill_tab(char **tab, char const *s, char c)
 {
 	size_t	i;
-	char	*start;
-	char	*end;
+	size_t	start;
+	size_t	k;
 
 	i = 0;
-	while (*s)
+	k = 0;
+	while (s[i])
 	{
-		while (*s == c)
-			s++;
-		if (*s == '\0')
+		while (s[i] && s[i] == c)
+			i++;
+		if (!s[i])
 			break ;
-		start = (char *)s;
-		while (*s && *s != c)
-			s++;
-		end = (char *)s;
-		tab[i] = alloc_word(start, end - start);
-		if (tab[i] == NULL)
-		{
-			free_tab(tab, i);
-			return (1);
-		}
-		i++;
+		start = i;
+		while (s[i] && s[i] != c)
+			i++;
+		tab[k] = ft_strndup(s, start, i);
+		if (!tab[k])
+			return (ft_free_tab(tab, k), 0);
+		k++;
 	}
-	tab[i] = NULL;
-	return (0);
+	tab[k] = NULL;
+	return (1);
 }
 
-char	**ft_split(const char *s, char c)
+char	**ft_split(char const *s, char c)
 {
-	size_t	words;
 	char	**tab;
+	size_t	words;
 
 	if (!s)
 		return (NULL);
-	words = count_words(s, c);
+	words = ft_wordcount(s, c);
 	tab = malloc((words + 1) * sizeof(char *));
 	if (!tab)
 		return (NULL);
-	if (fill_tab(tab, s, c))
+	if (!ft_fill_tab(tab, s, c))
 		return (NULL);
 	return (tab);
 }
+
+/*
+#include <stdio.h>
+
+int	main(void)
+{	
+	char **dst = ft_split("---Hello-World---", '-');
+
+	int j = 0;
+	int k = 1;
+	while (dst[j])
+	{
+		printf("%d tableau : %s \n", k, dst[j]);
+		k++;
+		j++;
+	}
+	
+	return (0);
+} */

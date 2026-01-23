@@ -6,7 +6,7 @@
 /*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 18:14:44 by amary             #+#    #+#             */
-/*   Updated: 2026/01/22 18:44:16 by amary            ###   ########.fr       */
+/*   Updated: 2026/01/23 16:37:44 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,17 @@ void	free_split(char **paths)
 	if (!paths)
 		return ;
 	while (paths[i])
-	{
-		free(paths[i]);
-		i++;
-	}
+		free(paths[i++]);
 	free(paths);
 	return ;
 }
 
 void	free_cmd(t_cmd *cmd)
 {
-	if (cmd->argv)
+	if (cmd->name)
 	{
-		free_split(cmd->argv);
-		cmd->argv = NULL;
+		free_split(cmd->name);
+		cmd->name = NULL;
 	}
 	if (cmd->path)
 	{
@@ -43,7 +40,7 @@ void	free_cmd(t_cmd *cmd)
 	return ;
 }
 
-void	pipex_close(char *fd)
+void	pipex_close(int *fd)
 {
 	if (fd && (*fd >= 0))
 	{

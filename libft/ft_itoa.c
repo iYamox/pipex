@@ -3,68 +3,64 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nohubert <nohubert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 15:22:24 by nohubert          #+#    #+#             */
-/*   Updated: 2025/05/05 11:50:29 by nohubert         ###   LAUSANNE.ch       */
+/*   Created: 2025/11/05 17:26:52 by amary             #+#    #+#             */
+/*   Updated: 2025/11/16 11:49:16 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	nb_len(long nb)
+int	ft_getlen(long nb)
 {
-	size_t	count;
+	int	len;
 
-	if (nb == 0)
-		return (1);
-	count = 0;
-	while (nb > 0)
+	len = 0;
+	if (nb < 0)
 	{
+		nb = -nb;
+		len++;
+	}
+	while (nb >= 10)
+	{
+		len++;
 		nb = nb / 10;
-		count++;
 	}
-	return (count);
-}
-
-static char	*fill_str(char *s, long nb, size_t len)
-{
-	size_t	i;
-
-	i = len - 1;
-	s[len] = '\0';
-	if (nb == 0)
-		s[i] = '0';
-	while (nb > 0)
-	{
-		s[i] = (nb % 10) + '0';
-		nb /= 10;
-		i--;
-	}
-	return (s);
+	return (len + 1);
 }
 
 char	*ft_itoa(int n)
 {
-	int		sign;
 	long	nb;
-	size_t	len;
-	char	*str;
+	int		len;
+	char	*dst;
 
-	sign = 0;
 	nb = n;
+	len = ft_getlen(nb);
+	dst = malloc((len + 1) * sizeof(char));
+	if (!dst)
+		return (NULL);
+	dst[len] = '\0';
 	if (nb < 0)
 	{
-		sign = 1;
+		dst[0] = '-';
 		nb = -nb;
 	}
-	len = nb_len(nb);
-	len += sign;
-	str = malloc(len + 1);
-	if (!str)
-		return (NULL);
-	if (sign)
-		str[0] = '-';
-	fill_str(str + sign, nb, len - sign);
-	return (str);
+	while (len > 0 && dst[len - 1] != '-')
+	{
+		dst[len - 1] = nb % 10 + '0';
+		nb = nb / 10;
+		len--;
+	}
+	return (dst);
 }
+/*
+#include <stdio.h>
+
+int	main(void)
+{
+	printf("%s", ft_itoa(-54845));
+	
+	return (0);
+} */

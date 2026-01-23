@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nohubert <nohubert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/01 17:29:51 by nohubert          #+#    #+#             */
-/*   Updated: 2025/05/01 17:48:43 by nohubert         ###   LAUSANNE.ch       */
+/*   Created: 2025/11/13 12:36:57 by amary             #+#    #+#             */
+/*   Updated: 2025/11/13 12:36:57 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,14 @@ void	ft_putnbr_fd(int n, int fd)
 		write(fd, "-", 1);
 		n = -n;
 	}
+	if (n <= 9)
+	{
+		c = '0' + n;
+		write(fd, &c, 1);
+	}
 	if (n >= 10)
+	{
 		ft_putnbr_fd(n / 10, fd);
-	c = n % 10 + '0';
-	write(fd, &c, 1);
+		ft_putnbr_fd(n % 10, fd);
+	}
 }

@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nohubert <nohubert@student.42.fr>          +#+  +:+       +#+        */
+/*   By: amary <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/30 09:24:47 by nohubert          #+#    #+#             */
-/*   Updated: 2025/04/30 11:07:28 by nohubert         ###   LAUSANNE.ch       */
+/*   Created: 2025/11/05 17:43:56 by amary             #+#    #+#             */
+/*   Updated: 2025/11/05 17:45:27 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_tolower(int c)
 {
