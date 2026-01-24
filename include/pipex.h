@@ -6,16 +6,12 @@
 /*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 18:05:44 by amary             #+#    #+#             */
-/*   Updated: 2026/01/23 15:41:09 by amary            ###   ########.fr       */
+/*   Updated: 2026/01/24 11:42:17 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
-
-# define PX_RD 0
-# define PX_WR 1
-# define PX_OUTMODE 0644 
 
 # include "../libft/libft.h"
 # include <unistd.h>

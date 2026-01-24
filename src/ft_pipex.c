@@ -6,7 +6,7 @@
 /*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:18:57 by amary             #+#    #+#             */
-/*   Updated: 2026/01/23 15:43:43 by amary            ###   ########.fr       */
+/*   Updated: 2026/01/24 11:43:03 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	child_process(t_pipex *pipex)
 		perror("dup2, infiles error\n");
 		exit(1);
 	}
-	if (dup2(pipex->pipefd[PX_WR], 1) == -1)
+	if (dup2(pipex->pipefd[1], 1) == -1)
 	{
 		perror("dup2 pipe write\n");
 		exit(1);
 	}
-	close(pipex->pipefd[PX_RD]);
-	close(pipex->pipefd[PX_WR]);
+	close(pipex->pipefd[0]);
+	close(pipex->pipefd[1]);
 	close(pipex->infile);
 	close(pipex->outfile);
 	ensure_cmd_or_die(&pipex->cmd[0]);
@@ -50,7 +50,7 @@ void	child_process(t_pipex *pipex)
 
 void	child_process2(t_pipex *pipex)
 {
-	if (dup2(pipex->pipefd[PX_RD], 0) == -1)
+	if (dup2(pipex->pipefd[1], 0) == -1)
 	{
 		perror("dup2 pipe read\n");
 		exit(1);
@@ -60,8 +60,8 @@ void	child_process2(t_pipex *pipex)
 		perror("dup2 outfile\n");
 		exit(1);
 	}
-	close(pipex->pipefd[PX_WR]);
-	close(pipex->pipefd[PX_RD]);
+	close(pipex->pipefd[1]);
+	close(pipex->pipefd[0]);
 	close(pipex->outfile);
 	close(pipex->infile);
 	ensure_cmd_or_die(&pipex->cmd[1]);
@@ -89,8 +89,8 @@ int	ft_pipex(t_pipex *pipex)
 		child_process2(pipex);
 	pipex_close(&pipex->infile);
 	pipex_close(&pipex->outfile);
-	pipex_close(&pipex->pipefd[PX_RD]);
-	pipex_close(&pipex->pipefd[PX_WR]);
+	pipex_close(&pipex->pipefd[0]);
+	pipex_close(&pipex->pipefd[1]);
 	waitpid(pid, NULL, 0);
 	waitpid(pid, NULL, 0);
 	return (0);
