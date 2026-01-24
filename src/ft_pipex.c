@@ -6,7 +6,7 @@
 /*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:18:57 by amary             #+#    #+#             */
-/*   Updated: 2026/01/24 11:43:03 by amary            ###   ########.fr       */
+/*   Updated: 2026/01/24 17:51:58 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ensure_cmd_or_die(t_cmd *cmd)
 
 void	child_process(t_pipex *pipex)
 {
-	if (dup2(pipex->infile, 0) == - 1)
+	if (dup2(pipex->infile, 0) == -1)
 	{
 		perror("dup2, infiles error\n");
 		exit(1);
