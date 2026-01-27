@@ -6,7 +6,7 @@
 /*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/22 18:05:44 by amary             #+#    #+#             */
-/*   Updated: 2026/01/24 11:42:17 by amary            ###   ########.fr       */
+/*   Updated: 2026/01/26 15:02:22 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <errno.h>
+
+# define STDOUT 1
+# define STDIN 0
 
 typedef struct s_cmd
 {

@@ -6,7 +6,7 @@
 /*   By: amary <amary@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/23 15:18:57 by amary             #+#    #+#             */
-/*   Updated: 2026/01/24 17:51:58 by amary            ###   ########.fr       */
+/*   Updated: 2026/01/27 14:49:26 by amary            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ void	ensure_cmd_or_die(t_cmd *cmd)
 
 void	child_process(t_pipex *pipex)
 {
-	if (dup2(pipex->infile, 0) == -1)
+	if (dup2(pipex->infile, STDIN) == -1)
 	{
 		perror("dup2, infiles error\n");
 		exit(1);
 	}
-	if (dup2(pipex->pipefd[1], 1) == -1)
+	if (dup2(pipex->pipefd[1], STDOUT) == -1)
 	{
 		perror("dup2 pipe write\n");
 		exit(1);
@@ -50,12 +50,13 @@ void	child_process(t_pipex *pipex)
 
 void	child_process2(t_pipex *pipex)
 {
-	if (dup2(pipex->pipefd[1], 0) == -1)
+
+	if (dup2(pipex->pipefd[0], STDIN) == -1)
 	{
 		perror("dup2 pipe read\n");
 		exit(1);
 	}
-	if (dup2(pipex->outfile, 1) == -1)
+	if (dup2(pipex->outfile, STDOUT) == -1)
 	{
 		perror("dup2 outfile\n");
 		exit(1);
@@ -92,6 +93,6 @@ int	ft_pipex(t_pipex *pipex)
 	pipex_close(&pipex->pipefd[0]);
 	pipex_close(&pipex->pipefd[1]);
 	waitpid(pid, NULL, 0);
-	waitpid(pid, NULL, 0);
+	waitpid(pid2, NULL, 0);
 	return (0);
 }
